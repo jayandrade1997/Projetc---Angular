@@ -1,0 +1,49 @@
+<section class="reservation-form-container">
+  <h2>Nueva reserva</h2>
+
+  <form [formGroup]="reservationForm" (ngSubmit)="submit()">
+    <div class="form-row">
+      <label for="nombreCliente">Nombre del cliente</label>
+      <input id="nombreCliente" type="text" formControlName="nombreCliente" />
+    </div>
+    @if (reservationForm.controls.nombreCliente.touched && reservationForm.controls.nombreCliente.invalid) {
+      <small class="field-error">El nombre del cliente es obligatorio.</small>
+    }
+
+    <div class="form-row">
+      <label for="fecha">Fecha</label>
+      <input id="fecha" type="date" formControlName="fecha" />
+    </div>
+    @if (reservationForm.controls.fecha.touched && reservationForm.controls.fecha.invalid) {
+      <small class="field-error">La fecha es obligatoria.</small>
+    }
+
+    <div class="form-row">
+      <label for="hora">Hora</label>
+      <input id="hora" type="time" formControlName="hora" />
+    </div>
+    @if (reservationForm.controls.hora.touched && reservationForm.controls.hora.invalid) {
+      <small class="field-error">La hora es obligatoria.</small>
+    }
+
+    <div class="form-row">
+      <label for="servicio">Servicio</label>
+      <select id="servicio" formControlName="servicio">
+        <option value="">Selecciona un servicio</option>
+        @for (service of services; track service) {
+          <option [value]="service">{{ service }}</option>
+        }
+      </select>
+    </div>
+    @if (reservationForm.controls.servicio.touched && reservationForm.controls.servicio.invalid) {
+      <small class="field-error">El servicio es obligatorio.</small>
+    }
+
+    <button type="submit" [disabled]="saving()">
+      {{ saving() ? 'Guardando...' : 'Crear reserva' }}
+    </button>
+  </form>
+
+  <app-error-toast [message]="saveError()" variant="error"></app-error-toast>
+  <app-error-toast [message]="saveSuccess()" variant="success"></app-error-toast>
+</section>

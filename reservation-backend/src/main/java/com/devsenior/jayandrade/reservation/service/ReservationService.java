@@ -25,7 +25,7 @@ public class ReservationService {
 
 	public Reservation createReservation(String clientName, LocalDate date, LocalTime time, String service) {
 		if (reservationRepository.existsByDateAndTime(date, time)) {
-			throw new BusinessRuleException("A reservation already exists for the given date and time.");
+			throw new BusinessRuleException("Ya existe una reserva para la fecha y hora seleccionadas.");
 		}
 
 		Reservation reservation = new Reservation();
